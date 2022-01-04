@@ -1,0 +1,31 @@
+name: Github Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Installing Dependencies
+        run: npm install
+      - name: Building Angular Project
+        run: npm run build
+      - name: Setup Git Config
+        run: |
+          git config --global user.email "ethereal97@gmail.com"
+          git config --global user.name "SKM Etheloper"
+      - name: Commit Git Changes
+        run: |
+          mv dist docs
+          cp docs/index.html docs/404.html
+          git checkout --orphan gh-pages
+          git add --all
+          git commit -m "Github Pages"
+          git push origin gh-pages --force
