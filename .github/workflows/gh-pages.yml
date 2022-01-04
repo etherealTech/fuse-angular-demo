@@ -2,21 +2,21 @@ name: Github Pages
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - name: Setup NodeJS
+      - name: Setup Node JS
         uses: actions/setup-node@v1
         with:
-          node-version: 14
-      - name: Installing Dependencies with Yarn
-        run: yarn
+          node-version: 12
+      - name: Installing Dependencies
+        run: npm install
       - name: Building Angular Project
-        run: yarn build
+        run: npm run build
       - name: Setup Git Config
         run: |
           git config --global user.email "ethereal97@gmail.com"
